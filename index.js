@@ -19,58 +19,111 @@ const divide = function(a,b)
     return a/b;
 }
 
-const operate = function(a,b)
+const operate = function(a,b,Symbol)
 {
-    let Symbol='/';
     if(Symbol=='+')
     {
-        console.log(add(a,b));
+        return(add(a,b));
     }
     else if(Symbol=='-')
     {
-        console.log(subtract(a,b));
+        return(subtract(a,b));
     }
     else if(Symbol=='*')
     {
-        console.log(multiply(a,b));
+        return(multiply(a,b));
     }
     else if(Symbol=='/')
     {
-        console.log(divide(a,b));
+        return(divide(a,b));
     }
 }
-operate(1,2);
 
+let a = null;
+let b = null;
+let oper=null;
 let miniScreenVal='';
 let mainScreenVal='';
+//function to update the top small screen
 const setMiniScreen = function(miniScreenVal)
 {
     const miniScreen = document.querySelector('#calcMiniScreen');
     miniScreen.textContent = miniScreenVal;
 }
+//function to update the bottom big screen
 const setMainScreen = function(mainScreenVal)
 {
     const mainScreen = document.querySelector('#calcMainScreen');
     mainScreen.textContent = mainScreenVal;
 }
-
+//function to update val when clicking on numbers.
 const numVal = function(e)
 {
-    let val = Number(e.target.innerText);
-    mainScreenVal+=val;
-    setMainScreen(mainScreenVal);
+    let val = Number(e.target.innerText);   
+    if(a===null)//single digit value for a
+    {
+        a=val;
+    }
+    else if (a!=null && oper==null)//more than 1 digit value for a
+    {
+        a=a*10+val;
+    }
+    else//same logic as a but for b - if operator is present insert into b
+    {
+        if(b==null)
+            b=val;
+        else
+            b=b*10+val;
+    }
+    if(b==null){// if b is not present display a
+        mainScreenVal=a;
+        setMainScreen(mainScreenVal); 
+    }
+    else{
+        mainScreenVal=b;
+        setMainScreen(mainScreenVal); 
+    }    
 }
 const symVal = function(e)
 {
     let val = e.target.innerText;
-    miniScreenVal+=mainScreenVal+val;
-    setMiniScreen(miniScreenVal);
-    mainScreenVal='';
-    setMainScreen(mainScreenVal);
+    if(val==='=')//output result
+    {
+        if(b==null)//to handle special case where value needs to be loaded from main screen.
+        {
+            b=Number(mainScreenVal);
+        }
+        miniScreenVal+=b+'=';
+        setMiniScreen(miniScreenVal);
+        res=operate(a,b,oper);
+        mainScreenVal=res;
+        setMainScreen(mainScreenVal);
+        a=res;
+        b=null;
+        miniScreenVal='';
+        oper=null;
+    }
+    else
+    {
+        if(b==null)//increment operator to miniscreen if b is not present
+        {
+            miniScreenVal+=mainScreenVal+val;
+            setMiniScreen(miniScreenVal);
+            oper=val;
+        }
+        else// if b is present perform the operation of pervious operator and display it in main screen.
+        {
+            miniScreenVal+=b+val;
+            setMiniScreen(miniScreenVal);
+            res=operate(a,b,oper);
+            mainScreenVal=res;
+            setMainScreen(mainScreenVal);
+            a=res;
+            b=null;
+            oper=val;
+        }
+    }
 }
-
-let a = null;
-let b = null;
 
 //7
 const seven = document.querySelector('#seven');
@@ -127,7 +180,12 @@ plus.addEventListener('click',symVal);
 //clear
 const clear = document.querySelector('#clear');
 clear.addEventListener('click',()=>{
+    //initialize everything
     miniScreenVal='';
     setMiniScreen(miniScreenVal);
     setMainScreen(0);
+    a=null;
+    b=null;
+    oper=null;
+    mainScreenVal='';
 });
