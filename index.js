@@ -61,7 +61,7 @@ const setMainScreen = function(mainScreenVal)
 const numVal = function(e)
 {
     let val = e.target.innerText;   
-    if(oper)
+    if(oper)//if an operator has been pressed meaning now we are entering the second value(b).
     {
         if(b==null)
         {
@@ -104,7 +104,7 @@ const symVal = function(e)
         }
         miniScreenVal+=b+'=';
         setMiniScreen(miniScreenVal);
-        res=operate(a,b,oper);
+        res=operate(a,b,oper);//calculation of value
         mainScreenVal=res;
         setMainScreen(mainScreenVal);
         a=res;
@@ -112,7 +112,7 @@ const symVal = function(e)
         miniScreenVal='';
         oper=null;
     }
-    else if (val=='.')
+    else if (val=='.')//adding the . operator to the main screen
     {
         mainScreenVal+='.';
         setMainScreen(mainScreenVal);
@@ -207,12 +207,12 @@ clear.addEventListener('click',()=>{
 //delete
 const del = document.querySelector('#delete');
 del.addEventListener('click',()=>{
-    if(mainScreenVal.length<2)
+    if(mainScreenVal.length<2) //to delete the last digit from screen
     {
         mainScreenVal='';
         setMainScreen(0);
     }
-    else
+    else 
     {
         console.log(mainScreenVal);
         mainScreenVal=mainScreenVal.slice(0,-1);
