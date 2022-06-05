@@ -60,35 +60,38 @@ const setMainScreen = function(mainScreenVal)
 //function to update val when clicking on numbers.
 const numVal = function(e)
 {
-    
-    let val = Number(e.target.innerText);   
-    if( oper==null)//single digit value for a
-    {
-        
-        if(a==null)
-        {
-            a=val;
-        }
-        else //more than 1 digit value for a
-        {
-            a=a*10+val;
-        }
-    }
-    else//same logic as a but for b - if operator is present insert into b
+    let val = e.target.innerText;   
+    if(oper)
     {
         if(b==null)
-            b=val;
+        {
+            mainScreenVal=val;
+            setMainScreen(mainScreenVal);
+            b=Number(val);
+        }
         else
-            b=b*10+val;
+        {
+            mainScreenVal+=val;
+            setMainScreen(mainScreenVal);
+            b=Number(mainScreenVal);
+        }
     }
-    if(b==null){// if b is not present display a
-        mainScreenVal=a;
-        setMainScreen(mainScreenVal); 
+    else
+    {
+        if(a==null)
+        {
+            mainScreenVal=val;
+            setMainScreen(mainScreenVal);
+            a=Number(mainScreenVal);
+        }
+        else
+        {
+            mainScreenVal+=val;
+            setMainScreen(mainScreenVal);
+            a=Number(mainScreenVal);
+        }
     }
-    else{
-        mainScreenVal=b;
-        setMainScreen(mainScreenVal); 
-    }    
+    
 }
 const symVal = function(e)
 {
@@ -199,4 +202,25 @@ clear.addEventListener('click',()=>{
     b=null;
     oper=null;
     mainScreenVal='';
+});
+
+//delete
+const del = document.querySelector('#delete');
+del.addEventListener('click',()=>{
+    if(mainScreenVal.length<2)
+    {
+        mainScreenVal='';
+        setMainScreen(0);
+    }
+    else
+    {
+        console.log(mainScreenVal);
+        mainScreenVal=mainScreenVal.slice(0,-1);
+        setMainScreen(mainScreenVal);
+        if(b==null)
+            a=Math.floor(a/10);
+        else
+            b=Math.floor(b/10);
+    }
+    
 });
