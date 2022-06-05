@@ -1,0 +1,95 @@
+body
+{
+    min-height: 100vh;
+}
+#content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+#calcBody{
+    height: 80vh;
+    width: 400px;
+    padding-top: 40px;
+    background-color: black;
+    color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+}
+#calcScreen
+{
+    width: 300px;
+    height: 80px;
+    background-color: white;
+    color: black;
+    padding: 0px 20px 0px 20px;
+}
+#calcMiniScreen
+{
+    height: 30px;
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 10px;
+    font-size: x-large;
+    background-color: #edf3fc;
+}
+#calcMainScreen
+{
+    height: 50px;
+    text-align: right;
+    padding-right: 10px;
+    font-size: xx-large;
+}
+#calcBtns
+{
+    height: 300px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    background-color: wheat;
+    padding: 20px 20px 20px 20px;
+}
+#topBtns
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+#bottomBtns
+{
+    width: inherit;
+    height: 2800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30 px;
+    
+}
+.row
+{
+    display: flex;
+    gap: 30 px;
+    width: inherit;
+    justify-content: space-between;
+}
+.tbtn
+{
+    width: 100px;
+    font-size: x-large;
+}
+.bbtn
+{
+    width: 60px;
+    height: 60px;
+    font-weight: bold;
+    font-size: large;
+}
