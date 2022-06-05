@@ -44,6 +44,7 @@ let b = null;
 let oper=null;
 let miniScreenVal='';
 let mainScreenVal='';
+
 //function to update the top small screen
 const setMiniScreen = function(miniScreenVal)
 {
@@ -59,14 +60,19 @@ const setMainScreen = function(mainScreenVal)
 //function to update val when clicking on numbers.
 const numVal = function(e)
 {
+    
     let val = Number(e.target.innerText);   
-    if(a===null)//single digit value for a
+    if( oper==null)//single digit value for a
     {
-        a=val;
-    }
-    else if (a!=null && oper==null)//more than 1 digit value for a
-    {
-        a=a*10+val;
+        
+        if(a==null)
+        {
+            a=val;
+        }
+        else //more than 1 digit value for a
+        {
+            a=a*10+val;
+        }
     }
     else//same logic as a but for b - if operator is present insert into b
     {
@@ -102,6 +108,11 @@ const symVal = function(e)
         b=null;
         miniScreenVal='';
         oper=null;
+    }
+    else if (val=='.')
+    {
+        mainScreenVal+='.';
+        setMainScreen(mainScreenVal);
     }
     else
     {
